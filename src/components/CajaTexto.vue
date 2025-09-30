@@ -41,7 +41,7 @@ export default {
     font-size: clamp(15px, 3vw, 22px);
     text-align: left;
     box-sizing: border-box;
-    color: #292929;
+    color: #646464;
     background-color: #fff;
     margin-bottom: clamp(26px, 5vw, 38px);
     resize: none;           /* No permite expandir */
