@@ -17,11 +17,12 @@ export default {}
     width: 100%;
     max-width: 1200px;            /* anchura  */
     min-height: 100vh;
-    margin: 30px auto 0 auto;     /* Centra el contenedor horizontalmente */
+    margin: 60px auto 0 auto;     /* Centra el contenedor horizontalmente */
     padding: 0 14px;
     box-sizing: border-box;
     font-family: monospace;
     position: relative;
+    gap: 32px; /* <-- AGREGA ESTA LÍNEA AQUÍ */
 }
 
 @media (max-width: 600px) {
