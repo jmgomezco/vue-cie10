@@ -26,31 +26,24 @@ export default {
   padding: 10px 20px;
   line-height: 1.3;
   letter-spacing: 1.2px;
-  text-align: center;
+  text-align: left;
   width: fit-content;
   min-width: 120px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
- justify-content: center;
-
-  /* Posicionamiento absoluto respecto al contenedor */
-/* Posicionamiento absoluto respecto al contenedor */
-position: absolute;
-left: 0;
-top: 56px;         /* Mayor separación vertical del borde superior */
-margin-left: 14px; /* Igual que el padding izquierdo del contenedor */
-z-index: 10;
+  justify-content: flex-start;
+  margin-bottom: 32px; /* Separación vertical moderada con la caja de texto */
+  margin-left: 0;      /* Justificado a la izquierda */
 }
 
 /* Ajustes responsivos para pantallas pequeñas */
 @media (max-width: 600px) {
   .marca {
-    top: 32px;     /* Mayor separación vertical en móviles también */
-    margin-left: 8px;
     min-width: 80px;
     font-size: clamp(12px, 7vw, 22px);
     padding: 6px 10px;
+    margin-bottom: 18px;
   }
 }
 </style>
