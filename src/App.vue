@@ -1,43 +1,41 @@
 <template>
-  <ContainerInicial>
+  <ContainerInicial v-if="!mostrarSelect">
     <Marca textoMarca="NhugAi" class="marca-separada" />
     <CajaTexto @enviar="enviarTexto" />
     <Spinner v-if="loading" class="spinner-separado" />
-    <div v-if="respuesta" class="respuesta-api">
-      <pre>{{ respuesta }}</pre>
-    </div>
   </ContainerInicial>
+  <ContainerSelect v-else />
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import ContainerInicial from './components/ContainerInicial.vue'
+import ContainerSelect from './components/ContainerSelect.vue'
 import Marca from './components/Marca.vue'
 import CajaTexto from './components/CajaTexto.vue'
 import Spinner from './components/Spinner.vue'
 
 const loading = ref(false)
-const respuesta = ref('')
+const mostrarSelect = ref(false)
 
 async function enviarTexto(texto) {
   if (texto && texto.trim() !== '') {
     loading.value = true
-    respuesta.value = ''
+    // Oculta ContainerSelect mientras carga
+    mostrarSelect.value = false
     try {
-      const res = await fetch('https://ffljaqyibd.execute-api.us-east-1.amazonaws.com/texto', {
+      await fetch('https://ffljaqyibd.execute-api.us-east-1.amazonaws.com/texto', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ texto })
       })
-      // Devuelve el JSON correcto de la API
-      const data = await res.json()
-      respuesta.value = JSON.stringify(data, null, 2)
     } catch (e) {
-      respuesta.value = 'Error en la conexión con la API'
+      // puedes loguear si quieres
     } finally {
       loading.value = false
+      mostrarSelect.value = true // SIEMPRE muestra ContainerSelect después de la llamada
     }
   }
 }
@@ -50,12 +48,5 @@ async function enviarTexto(texto) {
 .spinner-separado {
   margin-top: 32px;
   align-self: center;
-}
-.respuesta-api {
-  margin-top: 32px;
-  font-size: 1.1em;
-  color: #222;
-  font-family: monospace;
-  white-space: pre-wrap;
 }
 </style>
