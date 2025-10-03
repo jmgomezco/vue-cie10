@@ -15,7 +15,7 @@ export default {}
     align-items: flex-start;      /* Justifica el contenido a la izquierda */
     justify-content: flex-start;
     width: 100%;
-    max-width: 1000px;            /* anchura  */
+    max-width: 900px;            /* anchura  */
     min-height: 100vh;
     margin: 60px auto 0 auto;     /* Centra el contenedor horizontalmente */
     padding: 0 14px;
