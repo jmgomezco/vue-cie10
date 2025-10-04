@@ -110,7 +110,7 @@ async function elegirCodigo(item, idx) {
         window.close()
         // Si window.close() no funciona (no fue abierta por JS), puedes redirigir:
         // window.location.href = "about:blank";
-      }, 1800)
+      }, 2050)
     }
   } catch (e) {
     // Manejar errores si lo deseas
