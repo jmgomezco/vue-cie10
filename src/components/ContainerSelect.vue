@@ -177,7 +177,7 @@ function reiniciar() {
 }
 .code-item:focus-visible,
 .code-item:focus {
-    outline: 4px solid #6495ED;
+    outline: 4px solid #354e7b;
     /* background-color eliminado */
 }
 .code-item:hover {
