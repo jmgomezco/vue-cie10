@@ -327,4 +327,10 @@ function reiniciar() {
       margin-bottom: clamp(8px, 2vw, 12px);
   }
 }
+
+@media (max-width: 600px) {
+  .container-inicial {
+    margin: 16px auto 0 auto; /* En móviles: margen superior de 16px */
+  }
+}
 </style>
