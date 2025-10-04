@@ -33,7 +33,7 @@
       <p>No se encontraros códigos para tu entrada.</p>
     </div>
 
-    <!-- Botón siempre visible para volver a pantalla inicial -->
+    <!-- Botón SIEMPRE visible para volver a pantalla inicial -->
     <div class="action-buttons">
       <button class="new-search-button" @click="reiniciar">
         Prueba con otro códigos
@@ -73,7 +73,6 @@ const loadingGrabado = ref(false)
 const codigoGrabado = ref(false)
 
 function isActive(idx) {
-  // Activo si está seleccionado, enfocado o con hover (pero no si ya está grabado)
   return (
     (elegidoIdx.value === idx && codigoGrabado.value) ||
     focusedIdx.value === idx ||
@@ -107,9 +106,10 @@ async function elegirCodigo(item, idx) {
       showConfirm.value = true
       setTimeout(() => {
         showConfirm.value = false
+        // Solo tras el popup, volver al inicio:
+        emit('reset')
       }, 1800)
     }
-    // Manejar errores si lo deseas
   } catch (e) {
     // Manejar errores si lo deseas
   } finally {
@@ -144,8 +144,6 @@ function reiniciar() {
     position: relative;
     gap: 32px;
 }
-
-/* --- Pantalla de resultados - fuentes más grandes (excepto h2 y botón nueva búsqueda) --- */
 .codes-list {
     width: 100%;
     display: flex;
@@ -154,13 +152,13 @@ function reiniciar() {
     margin-top: clamp(4px, 1vh, 12px);
     font-family: monospace;
 }
-
 .code-item {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: clamp(6px, 1vw, 12px);
+    /* REDUCIDO ALTO VERTICAL: */
+    padding: clamp(4px, 1vw, 8px) clamp(12px, 3vw, 18px);
     border: 2px solid #6495ED;
     border-radius: 8px;
     background-color: #f8f9ff;
@@ -181,7 +179,6 @@ function reiniciar() {
 .code-item:hover {
     background-color: #bceeff;
 }
-
 .select-button {
     background-color: #6495ED;
     color: #fff !important;
@@ -194,12 +191,10 @@ function reiniciar() {
     transition: all 0.3s ease;
     white-space: nowrap;
 }
-
 .select-button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
-
 .code-info {
     flex: 1;
     display: flex;
@@ -215,7 +210,6 @@ function reiniciar() {
     font-family: monospace;
     color: #000;
 }
-
 .action-buttons {
     width: 100%;
     display: flex;
@@ -223,7 +217,6 @@ function reiniciar() {
     margin-top: clamp(12px, 3vh, 28px);
     font-family: monospace;
 }
-
 .new-search-button {
     background-color: #354e7b;
     color: #fff !important;
@@ -246,13 +239,11 @@ function reiniciar() {
     transform: scale(1.05);
     font-family: monospace;
 }
-
 .no-codes-message p {
     font-family: monospace;
     color: #666;
     margin-bottom: clamp(10px, 2vh, 16px);
 }
-
 /* Popup confirmación */
 .popup-confirm {
     position: fixed;
@@ -272,8 +263,6 @@ function reiniciar() {
     opacity: 0.97;
     pointer-events: none;
 }
-
-/* Animación de aparición */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.35s;
@@ -286,7 +275,6 @@ function reiniciar() {
 .fade-leave-from {
   opacity: 1;
 }
-
 @media (max-width: 600px) {
   .container-select {
     max-width: 100%;
@@ -298,7 +286,7 @@ function reiniciar() {
       margin-top: clamp(2px, 1vw, 6px);
   }
   .code-item {
-      padding: clamp(4px, 1vw, 8px);
+      padding: clamp(2px, 1vw, 6px) clamp(10px, 3vw, 14px);
   }
   .select-button {
       font-size: clamp(10px, 4vw, 12px);
