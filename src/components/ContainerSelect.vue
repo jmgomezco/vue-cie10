@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="no-codes-message" v-else>
-      <p>No se encontraros códigos para tu entrada.</p>
+      <p>No se encontraron códigos para su entrada.</p>
     </div>
 
     <!-- Botón SIEMPRE visible para volver a pantalla inicial -->
