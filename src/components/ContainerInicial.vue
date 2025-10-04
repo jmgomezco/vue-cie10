@@ -17,7 +17,7 @@ export default {}
     width: 100%;
     max-width: 900px;            /* anchura  */
     min-height: 100vh;
-    margin: 60px auto 0 auto;     /* Centra el contenedor horizontalmente */
+    margin: 40px auto 0 auto; /* En pantallas grandes: margen superior de 40px */
     padding: 0 14px;
     box-sizing: border-box;
     font-family: monospace;
@@ -27,9 +27,8 @@ export default {}
 
 @media (max-width: 600px) {
   .container-inicial {
-    max-width: 100%;
-    padding: 0 8px;
-    margin: 24px auto 0 auto;    /* También centrado en móvil */
+    margin: 16px auto 0 auto; /* En móviles: margen superior de 16px */
   }
 }
+
 </style>
