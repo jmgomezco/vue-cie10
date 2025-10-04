@@ -8,8 +8,6 @@
         class="code-item"
         :class="{ activo: isActive(idx) }"
         tabindex="0"
-        @click="elegirCodigo(item, idx)"
-        @keydown.enter.prevent="elegirCodigo(item, idx)"
         @focus="setFocused(idx)"
         @blur="setFocused(null)"
         @mouseover="setHovered(idx)"
@@ -30,7 +28,7 @@
       </div>
     </div>
     <div class="no-codes-message" v-else>
-      <p>No se encontraron códigos para su entrada.</p>
+      <p>No se encontraron códigos para tu entrada.</p>
     </div>
 
     <!-- Botón SIEMPRE visible para volver a pantalla inicial -->
@@ -48,7 +46,7 @@
         role="status"
         aria-live="polite"
       >
-        Se grabó con exito tu selección
+        Se grabó con éxito tu selección
       </div>
     </transition>
   </div>
@@ -144,7 +142,7 @@ function reiniciar() {
     box-sizing: border-box;
     font-family: monospace;
     position: relative;
-    gap: 20px; /* separación vertical reducida a 20px */
+    gap: 20px;
 }
 .codes-list {
     width: 100%;
@@ -163,7 +161,6 @@ function reiniciar() {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* REDUCIDO ALTO VERTICAL: */
     padding: clamp(4px, 1vw, 8px) clamp(12px, 3vw, 18px);
     border: 2px solid #6495ED;
     border-radius: 8px;
@@ -251,7 +248,6 @@ function reiniciar() {
     margin-bottom: clamp(10px, 2vh, 16px);
     font-size: clamp(12px, 2vw, 18px);
 }
-/* Popup confirmación */
 .popup-confirm {
     position: fixed;
     top: 18px;
@@ -285,13 +281,12 @@ function reiniciar() {
 
 @media (max-width: 600px) {
   .container-select {
-    margin: 16px auto 0 auto; /* centra horizontalmente */
-    max-width: 100vw;         /* evita desbordes */
+    margin: 16px auto 0 auto;
+    max-width: 100vw;
     padding-left: 8px;
     padding-right: 8px;
     box-sizing: border-box;
   }
-
   .codes-list {
       gap: clamp(2px, 1vw, 6px);
       margin-top: clamp(2px, 1vw, 6px);
@@ -330,5 +325,4 @@ function reiniciar() {
       margin-bottom: clamp(8px, 2vw, 12px);
   }
 }
-
 </style>
