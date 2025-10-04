@@ -106,8 +106,10 @@ async function elegirCodigo(item, idx) {
       showConfirm.value = true
       setTimeout(() => {
         showConfirm.value = false
-        // Solo tras el popup, volver al inicio:
-        reiniciar()
+        // Cierra toda la app/página completamente
+        window.close()
+        // Si window.close() no funciona (no fue abierta por JS), puedes redirigir:
+        // window.location.href = "about:blank";
       }, 1800)
     }
   } catch (e) {
