@@ -327,5 +327,4 @@ function reiniciar() {
   }
 }
 
-}
 </style>
