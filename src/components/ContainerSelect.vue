@@ -146,7 +146,7 @@ function reiniciar() {
     gap: 20px;
 }
 .codes-list {
-    width: 100%;
+    width: 95%;
     display: flex;
     flex-direction: column;
     gap: clamp(3px, 1vw, 10px);
