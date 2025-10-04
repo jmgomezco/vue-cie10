@@ -7,9 +7,6 @@
         :key="item.codigo"
         class="code-item"
         :class="{ activo: isActive(idx) }"
-        tabindex="0"
-        @focus="setFocused(idx)"
-        @blur="setFocused(null)"
         @mouseover="setHovered(idx)"
         @mouseleave="setHovered(null)"
       >
@@ -17,11 +14,19 @@
           <span class="code-number">{{ item.codigo }}</span>
           <span class="code-description">{{ item.desc }}</span>
         </div>
+        <!-- El botón está fuera del área de la tarjeta y es el ÚNICO enfocable/tabbable -->
+      </div>
+      <div
+        v-for="(item, idx) in candidatos"
+        :key="'btn-' + item.codigo"
+        class="button-container"
+      >
         <button
           class="select-button"
           type="button"
           :disabled="codigoGrabado || loadingGrabado"
           @click.stop="elegirCodigo(item, idx)"
+          :aria-label="`Elegir código ${item.codigo}: ${item.desc}`"
         >
           Elegir
         </button>
@@ -64,7 +69,6 @@ const props = defineProps({
 const emit = defineEmits(['reset'])
 
 const elegidoIdx = ref(null)
-const focusedIdx = ref(null)
 const hoveredIdx = ref(null)
 const showConfirm = ref(false)
 const loadingGrabado = ref(false)
@@ -73,14 +77,10 @@ const codigoGrabado = ref(false)
 function isActive(idx) {
   return (
     (elegidoIdx.value === idx && codigoGrabado.value) ||
-    focusedIdx.value === idx ||
     hoveredIdx.value === idx
   )
 }
 
-function setFocused(idx) {
-  focusedIdx.value = idx
-}
 function setHovered(idx) {
   hoveredIdx.value = idx
 }
@@ -104,9 +104,7 @@ async function elegirCodigo(item, idx) {
       showConfirm.value = true
       setTimeout(() => {
         showConfirm.value = false
-        // Cierra toda la app/página completamente
         window.close()
-        // Si window.close() no funciona (no fue abierta por JS), puedes redirigir:
         // window.location.href = "about:blank";
       }, 2050)
     }
@@ -120,7 +118,6 @@ async function elegirCodigo(item, idx) {
 function reiniciar() {
   // No graba nada, solo resetea y vuelve al inicio
   elegidoIdx.value = null
-  focusedIdx.value = null
   hoveredIdx.value = null
   codigoGrabado.value = false
   showConfirm.value = false
@@ -168,10 +165,17 @@ function reiniciar() {
     transition: all 0.3s ease;
     font-family: monospace;
     outline: none;
+    margin-bottom: 0; /* no gap, gap lo da codes-list */
 }
 
   
-
+/* Botón separado de la tarjeta */
+.button-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: clamp(6px, 1vh, 16px);
+}
 .select-button {
     background-color: #6495ED;
     color: #fff !important;
@@ -183,6 +187,9 @@ function reiniciar() {
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+}
+.select-button:focus {
+    outline: 2px solid #6495ED;
 }
 .select-button:disabled {
     opacity: 0.6;
@@ -287,6 +294,9 @@ function reiniciar() {
   }
   .code-item {
       padding: clamp(2px, 1vw, 6px) clamp(10px, 3vw, 14px);
+  }
+  .button-container {
+      margin-bottom: clamp(4px, 1vw, 10px);
   }
   .select-button {
       font-size: clamp(10px, 4vw, 12px);
