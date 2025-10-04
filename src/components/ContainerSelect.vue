@@ -129,6 +129,7 @@ function reiniciar() {
 </script>
 
 <style scoped>
+  
 .container-select {
     display: flex;
     flex-direction: column;
@@ -269,15 +270,22 @@ function reiniciar() {
   opacity: 1;
 }
 
+
+
+/* ... Resto de tus estilos ... */
+
+
 @media (max-width: 600px) {
   .container-select {
     margin: 16px auto 0 auto;
-    max-width: 100vw;
+    max-width: 100%;        /* CORREGIDO: antes 100vw */
     padding-left: 8px;
     padding-right: 8px;
     box-sizing: border-box;
+    overflow-x: hidden;     /* Opcional, como última defensa */
   }
-  .codes-list {
+
+    .codes-list {
       gap: clamp(2px, 1vw, 6px);
       margin-top: clamp(2px, 1vw, 6px);
   }
