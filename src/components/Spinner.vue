@@ -11,8 +11,8 @@
     border: 8px solid #f3f3f3;
     border-top: 8px solid #6495ED;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     animation: spin 1.2s linear infinite;
     margin: 14px auto;
     display: block;
