@@ -170,21 +170,6 @@ function reiniciar() {
     outline: none;
 }
 
-.code-item.activo {
-    background-color: #bceeff !important;
-    box-shadow: 0 2px 8px rgba(100, 149, 237, 0.2);
-    transform: translateY(-1px);
-}
-.code-item:focus-visible,
-.code-item:focus {
-    outline: 4px solid #354e7b;
-    /* background-color eliminado */
-}
-.code-item:hover {
-    /* background-color eliminado */
-}
-
-
   
 
 .select-button {
