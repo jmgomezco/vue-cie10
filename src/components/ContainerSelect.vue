@@ -142,7 +142,7 @@ function reiniciar() {
     box-sizing: border-box;
     font-family: monospace;
     position: relative;
-    gap: 32px;
+    gap: 20px;
 }
 .codes-list {
     width: 100%;
