@@ -22,7 +22,7 @@ export default {}
     box-sizing: border-box;
     font-family: monospace;
     position: relative;
-    gap: 50px; /* <-- AGREGA ESTA LÍNEA AQUÍ */
+    gap: 80px; /* <-- AGREGA ESTA LÍNEA AQUÍ */
 }
 
 @media (max-width: 600px) {
