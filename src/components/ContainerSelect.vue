@@ -36,7 +36,7 @@
     <!-- Botón SIEMPRE visible para volver a pantalla inicial -->
     <div class="action-buttons">
       <button class="new-search-button" @click="reiniciar">
-        Prueba con otro códigos
+        Prueba con otro texto
       </button>
     </div>
 
