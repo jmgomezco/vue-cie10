@@ -107,7 +107,7 @@ async function elegirCodigo(item, idx) {
       setTimeout(() => {
         showConfirm.value = false
         // Solo tras el popup, volver al inicio:
-        emit('reset')
+        reiniciar()
       }, 1800)
     }
   } catch (e) {
@@ -142,7 +142,7 @@ function reiniciar() {
     box-sizing: border-box;
     font-family: monospace;
     position: relative;
-    gap: 20px;
+    gap: 20px; /* separación vertical reducida a 20px */
 }
 .codes-list {
     width: 100%;
@@ -151,6 +151,10 @@ function reiniciar() {
     gap: clamp(3px, 1vw, 10px);
     margin-top: clamp(4px, 1vh, 12px);
     font-family: monospace;
+}
+.codes-list,
+.code-item {
+    font-size: clamp(12px, 2vw, 18px);
 }
 .code-item {
     width: 100%;
@@ -243,6 +247,7 @@ function reiniciar() {
     font-family: monospace;
     color: #666;
     margin-bottom: clamp(10px, 2vh, 16px);
+    font-size: clamp(12px, 2vw, 18px);
 }
 /* Popup confirmación */
 .popup-confirm {
@@ -280,10 +285,15 @@ function reiniciar() {
     max-width: 100%;
     padding: 0 8px;
     margin: 24px auto 0 auto;
+    gap: 20px;
   }
   .codes-list {
       gap: clamp(2px, 1vw, 6px);
       margin-top: clamp(2px, 1vw, 6px);
+  }
+  .codes-list,
+  .code-item {
+      font-size: clamp(12px, 3vw, 16px);
   }
   .code-item {
       padding: clamp(2px, 1vw, 6px) clamp(10px, 3vw, 14px);
