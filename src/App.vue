@@ -65,7 +65,7 @@ function handleReset() {
   margin-bottom: 60px;
 }
 .spinner-separado {
-  margin-top: 20px;
+  margin-top: 5px;
   align-self: center;
 }
 </style>
