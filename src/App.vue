@@ -65,18 +65,8 @@ function handleReset() {
   margin-bottom: 60px;
 }
 .spinner-separado {
-  margin-top: 5px;
+  margin-top: 0px;
   align-self: center;
 }
 </style>
 
-<style>
-html, body, #app {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  overflow: hidden !important;
-  margin: 0;
-  padding: 0;
-}
-</style>
