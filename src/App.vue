@@ -62,7 +62,7 @@ function handleReset() {
 
 <style scoped>
 .marca-separada {
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 }
 .spinner-separado {
   margin-top: 20px;
