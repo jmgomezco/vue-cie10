@@ -14,7 +14,7 @@ export default {}
     flex-direction: column;
     align-items: flex-start;      /* Justifica el contenido a la izquierda */
     justify-content: flex-start;
-    width: 100%;
+    width: 95%;
     max-width: 900px;            /* anchura  */
     min-height: 100vh;
     margin: 40px auto 0 auto; /* En pantallas grandes: margen superior de 40px */
