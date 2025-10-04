@@ -25,10 +25,15 @@ export default {}
     gap: 50px; /* <-- AGREGA ESTA LÍNEA AQUÍ */
 }
 
-@media (max-width: 600px) {
-  .container-inicial {
-    margin: 16px auto 0 auto; /* En móviles: margen superior de 16px */
+  @media (max-width: 600px) {
+  .container-select {
+    margin: 16px auto 0 auto; /* centra horizontalmente */
+    max-width: 100vw;         /* evita desbordes */
+    padding-left: 8px;
+    padding-right: 8px;
+    box-sizing: border-box;
   }
+
 }
 
 </style>
