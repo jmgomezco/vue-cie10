@@ -282,13 +282,12 @@ function reiniciar() {
 .fade-leave-from {
   opacity: 1;
 }
+
 @media (max-width: 600px) {
   .container-select {
-    max-width: 100%;
-    padding: 0 8px;
-    margin: 24px auto 0 auto;
-    gap: 20px;
+    margin: 16px auto 0 auto; /* En móviles: margen superior de 16px */
   }
+
   .codes-list {
       gap: clamp(2px, 1vw, 6px);
       margin-top: clamp(2px, 1vw, 6px);
@@ -328,9 +327,5 @@ function reiniciar() {
   }
 }
 
-@media (max-width: 600px) {
-  .container-inicial {
-    margin: 16px auto 0 auto; /* En móviles: margen superior de 16px */
-  }
 }
 </style>
