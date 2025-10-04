@@ -169,6 +169,7 @@ function reiniciar() {
     font-family: monospace;
     outline: none;
 }
+
 .code-item.activo {
     background-color: #bceeff !important;
     box-shadow: 0 2px 8px rgba(100, 149, 237, 0.2);
@@ -176,12 +177,16 @@ function reiniciar() {
 }
 .code-item:focus-visible,
 .code-item:focus {
-    background-color: #bceeff;
-    outline: 2px solid #6495ED;
+    outline: 4px solid #6495ED;
+    /* background-color eliminado */
 }
 .code-item:hover {
-    background-color: #bceeff;
+    /* background-color eliminado */
 }
+
+
+  
+
 .select-button {
     background-color: #6495ED;
     color: #fff !important;
