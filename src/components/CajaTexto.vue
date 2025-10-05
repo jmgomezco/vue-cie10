@@ -35,7 +35,7 @@ export default {
 .caja-texto {
     width: 100%;
     padding: 10px;
-    border: 3px solid #000;
+    border: 2px solid #000;
     border-radius: 55px;
     font-family: "Courier New", Courier, monospace;
     font-size: clamp(15px, 3vw, 22px);
