@@ -49,7 +49,7 @@ export default {
     box-shadow: none;       /* Sin sombra */
 }
 .caja-texto:focus {
-    border-color: #4169E1;
+    border-color: #000;
     box-shadow: none;       /* Sin sombra también en focus */
 }
 </style>
