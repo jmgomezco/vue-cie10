@@ -104,10 +104,7 @@ async function elegirCodigo(item, idx) {
       showConfirm.value = true
       setTimeout(() => {
         showConfirm.value = false
-        // Cierra toda la app/página completamente
-        window.close()
-        // Si window.close() no funciona (no fue abierta por JS), puedes redirigir:
-        // window.location.href = "about:blank";
+        reiniciar() // <-- CAMBIO: Siempre reinicia después del mensaje emergente.
       }, 2050)
     }
   } catch (e) {
