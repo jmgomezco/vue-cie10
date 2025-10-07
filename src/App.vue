@@ -20,20 +20,34 @@ import Marca from './components/Marca.vue'
 import CajaTexto from './components/CajaTexto.vue'
 import Spinner from './components/Spinner.vue'
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+}
+
+  
 const loading = ref(false)
 const mostrarSelect = ref(false)
 const sessionId = ref('')
 const candidatos = ref([])
 
+// --- Modifica la función para enviar el token en el header
 async function enviarTexto(texto) {
   if (texto && texto.trim() !== '') {
     loading.value = true
     mostrarSelect.value = false
+
+    // Leer el token de la cookie
+    const cognitoToken = getCookie('cognito_token')
+
     try {
       const res = await fetch('https://ffljaqyibd.execute-api.us-east-1.amazonaws.com/texto', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...(cognitoToken ? { 'Authorization': `Bearer ${cognitoToken}` } : {})
         },
         body: JSON.stringify({ texto })
       })
@@ -53,11 +67,14 @@ async function enviarTexto(texto) {
   }
 }
 
+  
+
 function handleReset() {
   mostrarSelect.value = false
   sessionId.value = ''
   candidatos.value = []
 }
+  
 </script>
 
 <style scoped>
