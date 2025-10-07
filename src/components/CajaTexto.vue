@@ -35,7 +35,7 @@ export default {
 .caja-texto {
     width: 100%;
     padding: 10px;
-    border: 2px solid #000;
+    border: 2px solid #6495ED;
     border-radius: 55px;
     font-family: "Courier New", Courier, monospace;
     font-size: clamp(15px, 3vw, 22px);
@@ -49,7 +49,7 @@ export default {
     box-shadow: none;       /* Sin sombra */
 }
 .caja-texto:focus {
-    border-color: #000;
+    border-color: #6495ED;
     box-shadow: none;       /* Sin sombra también en focus */
 }
 </style>
