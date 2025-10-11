@@ -13,13 +13,13 @@
         width="26"
         height="20"
         rx="3"
-        stroke="#000"
+        stroke="#6495ED"
         stroke-width="2"
         fill="none"
       />
       <polyline
         points="1,3 14,14 27,3"
-        stroke="#000"
+        stroke="#6495ED"
         stroke-width="2"
         fill="none"
       />
@@ -47,6 +47,6 @@ export default {
 
 .sobre-link:hover .envelope-icon rect,
 .sobre-link:hover .envelope-icon polyline {
-  stroke: #888;
+  stroke: #51d1f6; /* celeste */
 }
 </style>
