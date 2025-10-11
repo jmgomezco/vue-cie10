@@ -75,6 +75,7 @@ function handleReset() {
 
 <style scoped>
 .marca-separada {
+  margin-top: 60px; /* aumenta el margen superior */
   margin-bottom: 60px;
   display: flex;
   justify-content: center;
