@@ -1,6 +1,6 @@
 <template>
   <ContainerInicial v-if="!mostrarSelect">
-    <Marca textoMarca="NhugAi" class="marca-separada" />
+    <Sobre class="marca-separada" />
     <CajaTexto @enviar="enviarTexto" />
     <Spinner v-if="loading" class="spinner-separado" />
   </ContainerInicial>
@@ -16,7 +16,7 @@
 import { ref } from 'vue'
 import ContainerInicial from './components/ContainerInicial.vue'
 import ContainerSelect from './components/ContainerSelect.vue'
-import Marca from './components/Marca.vue'
+import Sobre from './components/Sobre.vue'
 import CajaTexto from './components/CajaTexto.vue'
 import Spinner from './components/Spinner.vue'
 
@@ -27,7 +27,6 @@ function getCookie(name) {
   return null;
 }
 
-  
 const loading = ref(false)
 const mostrarSelect = ref(false)
 const sessionId = ref('')
@@ -67,23 +66,22 @@ async function enviarTexto(texto) {
   }
 }
 
-  
-
 function handleReset() {
   mostrarSelect.value = false
   sessionId.value = ''
   candidatos.value = []
 }
-  
 </script>
 
 <style scoped>
 .marca-separada {
   margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .spinner-separado {
   margin-top: 0px;
   align-self: center;
 }
 </style>
-
