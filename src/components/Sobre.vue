@@ -1,7 +1,7 @@
 <template>
   <a
     class="sobre-link"
-    href="mailto:juan@nhug.eu"
+    href="mailto:nhug@nhug.ai"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Enviar correo"
