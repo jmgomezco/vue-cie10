@@ -131,10 +131,11 @@ function reiniciar() {
   align-items: flex-start;
   justify-content: flex-start;
   width: 95%;
-  max-width: 900px;
+  /* ancho responsivo y suave para evitar cambios agresivos */
+  max-width: clamp(720px, 88vw, 900px);
   min-height: 100vh;
   margin: 20px auto 0 auto;
-  padding: 0 14px;
+  padding: 0 12px;
   box-sizing: border-box;
   font-family: monospace;
   position: relative;
@@ -155,13 +156,13 @@ function reiniciar() {
   font-size: clamp(12px, 2vw, 18px);
 }
 
-/* -> Cambiado a grid para forzar botón a la derecha y evitar que la descripción lo empuje abajo */
+/* Usar grid con minmax para evitar que la descripción empuje el botón */
 .code-item {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr auto; /* descripción flexible | botón auto */
+  grid-template-columns: minmax(0, 1fr) auto; /* descripción flexible | botón fijo */
   gap: 12px;
-  align-items: start; /* alinear el botón al tope de la descripción multilinea */
+  align-items: start; /* botón alineado al tope de la descripción multilinea */
   padding: clamp(4px, 1vw, 8px) clamp(12px, 3vw, 18px);
   border: 2px solid #6495ED;
   border-radius: 8px;
@@ -172,9 +173,9 @@ function reiniciar() {
   box-sizing: border-box;
 }
 
-/* Permitir que este grid-child se encoja correctamente */
+/* Permitir que el bloque de texto se encoja dentro de la celda del grid */
 .code-info {
-  min-width: 0; /* MUY IMPORTANTE para evitar overflow en grid/flex */
+  min-width: 0; /* clave para evitar overflow que empuja al botón */
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -190,7 +191,7 @@ function reiniciar() {
   white-space: normal;
 }
 
-/* botón: mantener compacto y evitar wrap interno */
+/* botón: compacto y pegado a la columna derecha */
 .select-button {
   background-color: #6495ED;
   color: #fff !important;
@@ -202,11 +203,12 @@ function reiniciar() {
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
-  align-self: start; /* alinear al tope del grid cell */
+  justify-self: end; /* asegurar que quede a la derecha */
+  align-self: start;
+  box-sizing: border-box;
 }
 
-/* Media query para móviles: conservar botón a la derecha en la mayoría de casos.
-   En pantallas muy pequeñas (ej. <360px) apilamos para evitar overflow horizontal. */
+/* Media query para móviles (suave): conservar botón a la derecha salvo pantallas muy pequeñas */
 @media (max-width: 600px) {
   .container-select {
     margin: 16px auto 0 auto;
@@ -214,15 +216,15 @@ function reiniciar() {
     padding-left: 8px;
     padding-right: 8px;
     box-sizing: border-box;
-    overflow-x: hidden; /* última línea de defensa */
+    overflow-x: hidden;
     width: 95%;
   }
 
   .code-item {
     padding: clamp(6px, 1vw, 8px) clamp(10px, 3vw, 12px);
-    grid-template-columns: 1fr auto;
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 8px;
+    align-items: center;
   }
 
   .select-button {
@@ -235,16 +237,15 @@ function reiniciar() {
   }
 }
 
-/* Pantallas muy estrechas: apilar (botón abajo) para evitar scroll horizontal extremo */
+/* Solo en pantallas extremadamente estrechas apilamos (botón abajo) para evitar scroll horizontal */
 @media (max-width: 360px) {
   .code-item {
     grid-template-columns: 1fr;
   }
   .select-button {
-    width: auto;
-    white-space: normal;
-    margin-top: 8px;
     justify-self: start;
+    margin-top: 8px;
+    white-space: normal;
   }
 }
 
