@@ -1,15 +1,18 @@
 <template>
-  <ContainerInicial v-if="!mostrarSelect">
-    <Marca textoMarca="NhugAi" class="marca-separada" />
-    <CajaTexto @enviar="enviarTexto" />
-    <Spinner v-if="loading" class="spinner-separado" />
-  </ContainerInicial>
-  <ContainerSelect
-    v-else
-    :sessionId="sessionId"
-    :candidatos="candidatos"
-    @reset="handleReset"
-  />
+  <div class="app-container">
+    <ContainerInicial v-if="!mostrarSelect">
+      <Marca textoMarca="NhugAi" class="marca-separada" />
+      <CajaTexto @enviar="enviarTexto" />
+      <Spinner v-if="loading" class="spinner-separado" />
+    </ContainerInicial>
+
+    <ContainerSelect
+      v-else
+      :sessionId="sessionId"
+      :candidatos="candidatos"
+      @reset="handleReset"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -87,6 +90,21 @@ function handleReset() {
   text-align: left; /* por si el padre usa text-align:center */
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: min(900px, 95%);
+  max-width: 900px;
+  margin: 40px auto 0;
+  padding: 0 14px;
+  box-sizing: border-box;
+  gap: 50px;
+  font-family: monospace;
+}
+
+  
 /* Mantengo el estilo del spinner separado */
 .spinner-separado {
   margin-top: 0px;
