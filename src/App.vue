@@ -76,7 +76,7 @@ function handleReset() {
 <style scoped>
 /* Ajustes para que la Marca quede justificada a la izquierda en el primer contenedor */
 .marca-separada {
-  margin-top: 45px; /* aumenta el margen superior */
+  margin-top: 30px; /* aumenta el margen superior */
   margin-bottom: 45px;
   display: flex;
   justify-content: flex-start; /* contenido hacia la izquierda */
