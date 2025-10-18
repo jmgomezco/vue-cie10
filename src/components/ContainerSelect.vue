@@ -15,8 +15,8 @@
       >
         <div class="code-info">
           <span class="code-number">{{ item.codigo }}</span>
-          <!-- Forzar renderizado como String para evitar formateos indeseados -->
-          <span class="code-description" v-text="String(item.desc)"></span>
+          <!-- Mostrar la descripción forzada a String y normalizada -->
+          <span class="code-description" v-text="descToString(item.desc)"></span>
         </div>
         <button
           class="select-button"
@@ -70,6 +70,62 @@ const hoveredIdx = ref(null)
 const showConfirm = ref(false)
 const loadingGrabado = ref(false)
 const codigoGrabado = ref(false)
+
+/**
+ * Normaliza la descripción para mostrar:
+ * - Si ya empieza con 'E' seguido de número, devuelve tal cual.
+ * - Si detecta formato de euros (p. ej. "78,81 euros", "€78,81", "1.234,56 €"),
+ *   convierte a formato "E<number>" con separador decimal punto: "E78.81", "E1234.56".
+ * - En cualquier otro caso devuelve String(desc) tal cual.
+ */
+function descToString(desc) {
+  const s = desc == null ? '' : String(desc)
+
+  // Si ya tiene formato tipo E123.45 retornarlo tal cual
+  if (/^\s*E\s*-?\d+([.,]\d+)?\s*$/i.test(s)) {
+    return s.trim().replace(/\s+/g, '')
+  }
+
+  // Buscar formatos comunes de euros:
+  //  - "78,81 euros"  (number + optional space + '€' or 'euros')
+  //  - "€78,81"
+  //  - "1.234,56 €" (thousands with dot, decimal with comma)
+  // Regex para encontrar la parte numérica junto al símbolo/word
+  const euroAfter = s.match(/([0-9]+(?:[.,][0-9]{1,3})*(?:[.,][0-9]{1,3})?)\s*(€|euros?)/i)
+  const euroBefore = s.match(/(€)\s*([0-9]+(?:[.,][0-9]{1,3})*(?:[.,][0-9]{1,3})?)/i)
+  let numStr = null
+
+  if (euroAfter) {
+    numStr = euroAfter[1]
+  } else if (euroBefore) {
+    numStr = euroBefore[2]
+  }
+
+  if (numStr) {
+    // Normalizar: quitar separadores de miles (puntos o espacios), convertir coma decimal a punto
+    let normalized = numStr.replace(/[\s\u202F]/g, '') // quitar espacios y thin spaces
+    // Si contiene ambos '.' y ',' se asume que '.' es separador de miles y ',' decimal
+    if (normalized.indexOf('.') !== -1 && normalized.indexOf(',') !== -1) {
+      normalized = normalized.replace(/\./g, '') // quitar miles
+      normalized = normalized.replace(/,/g, '.') // coma -> punto decimal
+    } else if (normalized.indexOf(',') !== -1 && normalized.indexOf('.') === -1) {
+      // caso "78,81" => convertir coma a punto
+      normalized = normalized.replace(/,/g, '.')
+    } else {
+      // solo puntos o solo dígitos: quitar posibles miles (no seguro), mantener puntos como decimal
+      normalized = normalized.replace(/\./g, '.') // no-op but keeps explicit
+    }
+
+    const n = parseFloat(normalized)
+    if (!Number.isNaN(n)) {
+      // Mantener dos decimales
+      return 'E' + n.toFixed(2)
+    }
+  }
+
+  // Si no coincide con euro, devolver la cadena tal cual (trimmed)
+  return s.trim()
+}
 
 function isActive(idx) {
   return (
