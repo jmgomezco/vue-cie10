@@ -125,6 +125,14 @@ function reiniciar() {
 </script>
 
 <style scoped>
+/* prevenir sorpresas: box-sizing global dentro del scope */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* contenedor principal */
 .container-select {
   display: flex;
   flex-direction: column;
@@ -134,122 +142,119 @@ function reiniciar() {
   /* ancho responsivo y suave para evitar cambios agresivos */
   max-width: clamp(720px, 88vw, 900px);
   min-height: 100vh;
-  margin: 20px auto 0 auto;
-  padding: 0 12px;
-  box-sizing: border-box;
+  margin: 20px auto 0;
+  padding: 0 12px; /* padding fijo, sin vw */
   font-family: monospace;
   position: relative;
   gap: 20px;
+  overflow-x: visible;
 }
 
+/* lista */
 .codes-list {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: clamp(3px, 1vw, 10px);
-  margin-top: clamp(4px, 1vh, 12px);
-  font-family: monospace;
+  gap: clamp(6px, 1.2vw, 12px);
+  margin-top: clamp(6px, 1vh, 12px);
 }
 
+/* base de fuente */
 .codes-list,
 .code-item {
   font-size: clamp(12px, 2vw, 18px);
 }
 
-/* Usar grid con minmax para evitar que la descripción empuje el botón */
+/* ITEM: grid seguro */
 .code-item {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto; /* descripción flexible | botón fijo */
-  gap: 12px;
-  align-items: start; /* botón alineado al tope de la descripción multilinea */
-  padding: clamp(4px, 1vw, 8px) clamp(12px, 3vw, 18px);
+  grid-template-columns: minmax(0, 1fr) auto; /* clave: minmax(0,1fr) */
+  gap: 10px;
+  align-items: start;
+  padding: 8px 10px; /* padding fijo y moderado */
   border: 2px solid #6495ED;
   border-radius: 8px;
   background-color: #f8f9ff;
-  transition: all 0.3s ease;
-  font-family: monospace;
+  transition: all 0.18s ease;
   outline: none;
   box-sizing: border-box;
 }
 
-/* Permitir que el bloque de texto se encoja dentro de la celda del grid */
+/* permitir que el bloque de texto se reduzca */
 .code-info {
-  min-width: 0; /* clave para evitar overflow que empuja al botón */
+  min-width: 0; /* imprescindible */
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  font-family: monospace;
+  gap: 4px;
 }
 
-/* permitir quiebres de palabras largas en la descripción */
+/* descripción: permitir quiebre de palabras largas */
 .code-description {
-  font-family: monospace;
   color: #000;
   overflow-wrap: anywhere;
   word-break: break-word;
+  hyphens: auto;
   white-space: normal;
 }
 
-/* botón: compacto y pegado a la columna derecha */
+/* botón: compacto, evitar que crezca demasiado */
 .select-button {
   background-color: #6495ED;
   color: #fff !important;
   border: none;
-  padding: clamp(7px, 1vw, 14px) clamp(12px, 3vw, 18px);
+  padding: 8px 10px; /* padding fijo */
   border-radius: 6px;
   font-family: monospace;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.18s ease;
   white-space: nowrap;
-  justify-self: end; /* asegurar que quede a la derecha */
+  justify-self: end;
   align-self: start;
+  max-width: 140px; /* proteger contra botones enormes */
   box-sizing: border-box;
 }
 
-/* Media query para móviles (suave): conservar botón a la derecha salvo pantallas muy pequeñas */
+/* imágenes y SVGs dentro de items (si hay) */
+.code-item img,
+.code-item svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* responsive: ajustes suaves para móvil */
 @media (max-width: 600px) {
   .container-select {
-    margin: 16px auto 0 auto;
-    max-width: 100%;
-    padding-left: 8px;
-    padding-right: 8px;
-    box-sizing: border-box;
-    overflow-x: hidden;
+    padding: 0 10px;
     width: 95%;
   }
 
   .code-item {
-    padding: clamp(6px, 1vw, 8px) clamp(10px, 3vw, 12px);
-    grid-template-columns: minmax(0, 1fr) auto;
     gap: 8px;
-    align-items: center;
+    padding: 8px 8px;
   }
 
   .select-button {
-    padding: clamp(6px, 1vw, 10px) clamp(8px, 3vw, 12px);
-    white-space: nowrap;
-  }
-
-  .code-description {
-    font-size: clamp(12px, 3vw, 14px);
+    padding: 7px 10px;
+    max-width: 120px;
   }
 }
 
-/* Solo en pantallas extremadamente estrechas apilamos (botón abajo) para evitar scroll horizontal */
+/* sólo en pantallas extremadamente pequeñas apilar (último recurso) */
 @media (max-width: 360px) {
   .code-item {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* apilar: descripción encima del botón */
   }
   .select-button {
     justify-self: start;
     margin-top: 8px;
     white-space: normal;
+    max-width: 100%;
   }
 }
 
-/* resto de estilos (sin cambios) */
+/* resto de estilos visuales (popup y botones globales) */
 .action-buttons {
   width: 100%;
   display: flex;
