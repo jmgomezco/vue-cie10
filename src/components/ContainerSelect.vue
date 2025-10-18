@@ -204,21 +204,21 @@ function reiniciar() {
   white-space: normal;
 }
 
-/* button: keep compact with max-width and allow shrink on smaller screens */
+/* button: slightly larger and increased font-size (proportional across breakpoints) */
 .select-button {
   background-color: #6495ED;
   color: #fff !important;
   border: none;
-  padding: clamp(8px, 1vw, 12px) clamp(10px, 2.2vw, 16px);
+  padding: clamp(10px, 1.2vw, 14px) clamp(12px, 2.6vw, 18px); /* increased padding */
   border-radius: 6px;
   font-family: monospace;
   font-weight: bold;
-  font-size: clamp(14px, 1.6vw, 16px);
+  font-size: clamp(15px, 1.9vw, 18px); /* slightly larger font */
   cursor: pointer;
   transition: all 0.18s ease;
   flex: 0 0 auto;
   white-space: nowrap;
-  max-width: 160px;
+  max-width: 180px; /* increased a little */
   box-sizing: border-box;
 }
 
@@ -237,9 +237,14 @@ function reiniciar() {
     max-width: 1400px;
     padding: 0 24px;
   }
+  .select-button {
+    padding: clamp(10px, 1.1vw, 16px) clamp(14px, 2.4vw, 20px);
+    font-size: clamp(16px, 1.6vw, 20px);
+    max-width: 200px;
+  }
 }
 
-/* Mobile: reduce paddings, button max-width and font so everything fits horizontally */
+/* Mobile: reduce paddings slightly compared to desktop but still larger than before */
 @media (max-width: 600px) {
   .container-select {
     padding: 0 12px;
@@ -253,9 +258,9 @@ function reiniciar() {
   }
 
   .select-button {
-    padding: 8px 10px;
-    max-width: 110px;
-    font-size: 15px;
+    padding: 10px 12px; /* kept slightly larger */
+    max-width: 130px; /* a bit more room for the larger button */
+    font-size: 16px;
   }
 
   /* If a description is extremely long, allow it to wrap freely but reduce risk of overflow */
