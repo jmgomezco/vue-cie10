@@ -15,7 +15,8 @@
       >
         <div class="code-info">
           <span class="code-number">{{ item.codigo }}</span>
-          <span class="code-description">{{ item.desc }}</span>
+          <!-- Forzar renderizado como String para evitar formateos indeseados -->
+          <span class="code-description" v-text="String(item.desc)"></span>
         </div>
         <button
           class="select-button"
