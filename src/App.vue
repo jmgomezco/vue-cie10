@@ -90,20 +90,7 @@ function handleReset() {
   text-align: left; /* por si el padre usa text-align:center */
 }
 
-.app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: min(900px, 95%);
-  max-width: 900px;
-  margin: 20px auto 0;
-  padding: 0 14px;
-  box-sizing: border-box;
-  gap: 10px;
-  font-family: monospace;
-}
-  
+ 
   
 /* Mantengo el estilo del spinner separado */
 .spinner-separado {
