@@ -26,14 +26,15 @@ export default {}
 }
 
   @media (max-width: 600px) {
-  .container-select {
-    margin: 16px auto 0 auto; /* centra horizontalmente */
-    max-width: 100vw;         /* evita desbordes */
+  .container-inicial {
+    margin: 16px auto 0 auto;
+    max-width: 100%;
     padding-left: 8px;
     padding-right: 8px;
     box-sizing: border-box;
+    width: 95%;
+    overflow-x: hidden;
   }
-
 }
 
 </style>
