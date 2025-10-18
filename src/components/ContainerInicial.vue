@@ -17,12 +17,12 @@ export default {}
   width: 95%;
   max-width: 900px;
   min-height: 100vh;
-  margin: 25px auto 0 auto;
+  margin: 20px auto 0 auto;
   padding: 0 14px;
   box-sizing: border-box;
   font-family: monospace;
   position: relative;
-  gap: 50px;
+  gap: 20px;
 }
 
 /* Media query corregida: antes apuntaba a .container-select por error */
