@@ -16,9 +16,9 @@
 import { ref } from 'vue'
 import ContainerInicial from './components/ContainerInicial.vue'
 import ContainerSelect from './components/ContainerSelect.vue'
-import Sobre from './components/Sobre.vue'
 import CajaTexto from './components/CajaTexto.vue'
 import Spinner from './components/Spinner.vue'
+import Marca from './components/Marca.vue' // <-- IMPORTADO para que el componente aparezca
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -74,13 +74,20 @@ function handleReset() {
 </script>
 
 <style scoped>
+/* Ajustes para que la Marca quede justificada a la izquierda en el primer contenedor */
 .marca-separada {
   margin-top: 45px; /* aumenta el margen superior */
   margin-bottom: 45px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* contenido hacia la izquierda */
   align-items: center;
+  align-self: flex-start; /* para que quede al inicio en contenedores flex */
+  margin-left: 0;
+  margin-right: auto; /* empuja hacia la izquierda cuando el padre es flex */
+  text-align: left; /* por si el padre usa text-align:center */
 }
+
+/* Mantengo el estilo del spinner separado */
 .spinner-separado {
   margin-top: 0px;
   align-self: center;
