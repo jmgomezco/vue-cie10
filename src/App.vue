@@ -97,13 +97,14 @@ function handleReset() {
   justify-content: flex-start;
   width: min(900px, 95%);
   max-width: 900px;
-  margin: 20px auto 0;
+  margin: 20px auto 0; /* 20px desde el borde superior del viewport */
   padding: 0 14px;
   box-sizing: border-box;
-  gap: 20px;
+  gap: 10px; /* 10px entre elementos hijos (verticalmente) */
   font-family: monospace;
 }
 
+  
   
 /* Mantengo el estilo del spinner separado */
 .spinner-separado {
