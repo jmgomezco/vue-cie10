@@ -1,7 +1,7 @@
 <template>
   <div class="container-select">
-  <Marca textoMarca="NhugAi" />
-  <div class="codes-list" v-if="candidatos && candidatos.length">
+    <Marca textoMarca="NhugAi" />
+    <div class="codes-list" v-if="candidatos && candidatos.length">
       <div
         v-for="(item, idx) in candidatos"
         :key="item.codigo"
@@ -109,6 +109,7 @@ async function elegirCodigo(item, idx) {
     }
   } catch (e) {
     // Manejar errores si lo deseas
+    console.error(e)
   } finally {
     loadingGrabado.value = false
   }
@@ -126,139 +127,138 @@ function reiniciar() {
 </script>
 
 <style scoped>
-
-
-  container-select {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    max-width: 900px;
-    min-height: 100vh;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding: 0 14px;
-    box-sizing: border-box;
-    font-family: monospace;
-    position: relative;
-    gap: 20px;
+/* FIX: selector corregido (antes estaba sin el punto: `container-select`) */
+/* Mantengo un ancho máximo razonable en pantallas grandes y uso width responsivo */
+.container-select {
+  width: min(900px, 95%); /* ancho responsivo: hasta 900px, o 95% del viewport en pantallas pequeñas */
+  max-width: 900px;
+  margin: 30px auto; /* centra en pantallas grandes */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: auto; /* no forzar 100vh para evitar sensación de "full width/height" */
+  padding: 0 14px;
+  gap: 20px;
+  font-family: monospace;
+  position: relative;
 }
 
+/* Si prefieres que en pantallas gigantes (>= 1400px) tenga aún más restricción
+   puedes usar un max-width más pequeño o añadir un media query; ejemplo:
+   @media (min-width: 1400px) { .container-select { max-width: 1100px; } }
+*/
 
 .codes-list {
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(3px, 1vw, 10px);
-    margin-top: clamp(4px, 1vh, 12px);
-    font-family: monospace;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3px, 1vw, 10px);
+  margin-top: clamp(4px, 1vh, 12px);
+  font-family: monospace;
 }
 .codes-list,
 .code-item {
-    font-size: clamp(12px, 2vw, 18px);
+  font-size: clamp(12px, 2vw, 18px);
 }
 .code-item {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: clamp(4px, 1vw, 8px) clamp(12px, 3vw, 18px);
-    border: 2px solid #6495ED;
-    border-radius: 8px;
-    background-color: #f8f9ff;
-    transition: all 0.3s ease;
-    font-family: monospace;
-    outline: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(4px, 1vw, 8px) clamp(12px, 3vw, 18px);
+  border: 2px solid #6495ED;
+  border-radius: 8px;
+  background-color: #f8f9ff;
+  transition: all 0.3s ease;
+  font-family: monospace;
+  outline: none;
 }
-
-  
 
 .select-button {
-    background-color: #6495ED;
-    color: #fff !important;
-    border: none;
-    padding: clamp(7px, 1vw, 14px) clamp(12px, 3vw, 18px);
-    border-radius: 6px;
-    font-family: monospace;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
+  background-color: #6495ED;
+  color: #fff !important;
+  border: none;
+  padding: clamp(7px, 1vw, 14px) clamp(12px, 3vw, 18px);
+  border-radius: 6px;
+  font-family: monospace;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 .select-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 .code-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    font-family: monospace;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: monospace;
 }
 .code-number {
-    font-family: monospace;
-    color: #000;
+  font-family: monospace;
+  color: #000;
 }
 .code-description {
-    font-family: monospace;
-    color: #000;
+  font-family: monospace;
+  color: #000;
 }
 .action-buttons {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: clamp(12px, 3vh, 28px);
-    font-family: monospace;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(12px, 3vh, 28px);
+  font-family: monospace;
 }
 .new-search-button {
-    background-color: #354e7b;
-    color: #fff !important;
-    border: none;
-    padding: clamp(8px, 2vh, 16px) clamp(16px, 4vw, 24px);
-    border-radius: 8px;
-    font-family: monospace;
-    font-size: clamp(15px, 3vw, 22px);
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
+  background-color: #354e7b;
+  color: #fff !important;
+  border: none;
+  padding: clamp(8px, 2vh, 16px) clamp(16px, 4vw, 24px);
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: clamp(15px, 3vw, 22px);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 .new-search-button:hover,
 .new-search-button:focus,
 .new-search-button.active {
-    background-color: #317f43 !important;
-    color: #fff !important;
-    transform: scale(1.05);
-    font-family: monospace;
+  background-color: #317f43 !important;
+  color: #fff !important;
+  transform: scale(1.05);
+  font-family: monospace;
 }
 .no-codes-message p {
-    font-family: monospace;
-    color: #666;
-    margin-bottom: clamp(10px, 2vh, 16px);
-    font-size: clamp(12px, 2vw, 18px);
+  font-family: monospace;
+  color: #666;
+  margin-bottom: clamp(10px, 2vh, 16px);
+  font-size: clamp(12px, 2vw, 18px);
 }
 .popup-confirm {
-    position: fixed;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10000;
-    background: #317f43;
-    color: #fff;
-    padding: 20px 32px;
-    border-radius: 12px;
-    font-size: clamp(15px, 3vw, 22px);
-    box-shadow: 0 4px 16px rgba(49, 127, 67, 0.16);
-    font-family: monospace;
-    font-weight: bold;
-    text-align: center;
-    opacity: 0.97;
-    pointer-events: none;
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  background: #317f43;
+  color: #fff;
+  padding: 20px 32px;
+  border-radius: 12px;
+  font-size: clamp(15px, 3vw, 22px);
+  box-shadow: 0 4px 16px rgba(49, 127, 67, 0.16);
+  font-family: monospace;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.97;
+  pointer-events: none;
 }
 .fade-enter-active,
 .fade-leave-active {
@@ -273,10 +273,7 @@ function reiniciar() {
   opacity: 1;
 }
 
-
-
 /* ... Resto de tus estilos ... */
-
 
 @media (max-width: 600px) {
   .container-select {
@@ -286,44 +283,45 @@ function reiniciar() {
     padding-right: 8px;
     box-sizing: border-box;
     overflow-x: hidden;     /* Opcional, como última defensa */
+    width: 95%;             /* asegurar margen lateral en móviles */
   }
 
-    .codes-list {
-      gap: clamp(2px, 1vw, 6px);
-      margin-top: clamp(2px, 1vw, 6px);
+  .codes-list {
+    gap: clamp(2px, 1vw, 6px);
+    margin-top: clamp(2px, 1vw, 6px);
   }
   .codes-list,
   .code-item {
-      font-size: clamp(12px, 3vw, 16px);
+    font-size: clamp(12px, 3vw, 16px);
   }
   .code-item {
-      padding: clamp(2px, 1vw, 6px) clamp(10px, 3vw, 14px);
+    padding: clamp(2px, 1vw, 6px) clamp(10px, 3vw, 14px);
   }
   .select-button {
-      font-size: clamp(10px, 4vw, 12px);
-      padding: clamp(6px, 1vw, 10px) clamp(10px, 3vw, 12px);
-      color: #fff !important;
+    font-size: clamp(10px, 4vw, 12px);
+    padding: clamp(6px, 1vw, 10px) clamp(10px, 3vw, 12px);
+    color: #fff !important;
   }
   .action-buttons {
-      margin-top: clamp(10px, 2vw, 16px);
+    margin-top: clamp(10px, 2vw, 16px);
   }
   .new-search-button {
-      font-size: clamp(12px, 3vw, 14px);
-      padding: clamp(7px, 1vw, 10px) clamp(12px, 3vw, 16px);
-      color: #fff !important;
+    font-size: clamp(12px, 3vw, 14px);
+    padding: clamp(7px, 1vw, 10px) clamp(12px, 3vw, 16px);
+    color: #fff !important;
   }
   .new-search-button:hover,
   .new-search-button:focus,
   .new-search-button.active {
-      color: #fff !important;
-      background-color: #317f43 !important;
+    color: #fff !important;
+    background-color: #317f43 !important;
   }
   .no-codes-message {
-      margin-top: clamp(8px, 2vw, 14px);
+    margin-top: clamp(8px, 2vw, 14px);
   }
   .no-codes-message p {
-      font-size: clamp(12px, 3vw, 13px);
-      margin-bottom: clamp(8px, 2vw, 12px);
+    font-size: clamp(12px, 3vw, 13px);
+    margin-bottom: clamp(8px, 2vw, 12px);
   }
 }
 </style>
