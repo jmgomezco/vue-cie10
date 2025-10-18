@@ -125,76 +125,77 @@ function reiniciar() {
 </script>
 
 <style scoped>
-/* prevenir sorpresas: box-sizing global dentro del scope */
+/* safety: component-scoped box-sizing for predictable sizing */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* contenedor principal */
+/* Container: scale max-width proportionally with viewport, but never overflow */
 .container-select {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  width: 95%;
-  max-width: clamp(720px, 88vw, 900px);
-  min-height: 100vh;
+
+  /* make the container grow proportionally with screen but constrained to viewport */
+  width: 100%;
+  max-width: clamp(780px, 92vw, 1200px); /* increases on larger screens, shrinks on small screens */
   margin: 20px auto 0;
-  padding: 0 12px;
+  padding: 0 18px; /* moderate padding that doesn't use vw, avoids adding to overflow */
+  min-height: 100vh;
+  box-sizing: border-box;
   font-family: monospace;
   position: relative;
   gap: 20px;
-  overflow-x: visible;
+
+  /* ensure no horizontal scroll caused by children escaping the box */
+  overflow-x: hidden;
 }
 
-/* lista */
+/* list wrapper */
 .codes-list {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: clamp(6px, 1.2vw, 12px);
+  gap: clamp(6px, 1.2vw, 14px);
   margin-top: clamp(6px, 1vh, 12px);
 }
 
-/* base de fuente */
+/* base font sizing */
 .codes-list,
 .code-item {
   font-size: clamp(12px, 2vw, 18px);
 }
 
-/* ITEM: grid para columna flexible + espacio reservado para botón
-   y posición absoluta del botón para garantizar que siempre aparezca
-   a la derecha, independientemente del número de líneas de la descripción. */
+/* code item: use grid with flexible column and fixed button column,
+   and make inner elements able to shrink to avoid overflow. */
 .code-item {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr; /* una columna para el contenido */
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto; /* flexible desc | button */
+  gap: 12px;
   align-items: start;
-  padding: 12px 12px; /* padding general del item */
+  padding: clamp(8px, 1vw, 14px);
   border: 2px solid #6495ED;
   border-radius: 8px;
   background-color: #f8f9ff;
   transition: all 0.18s ease;
   outline: none;
-  position: relative; /* necesario para posicionar el botón absolute */
   box-sizing: border-box;
 }
 
-/* Reservar espacio a la derecha dentro del contenido para que el texto
-   no quede debajo del botón (ajustar según max-width de botón) */
+/* allow the left column to shrink */
 .code-info {
-  min-width: 0;
+  min-width: 0; /* critical to allow shrink in flex/grid */
   display: flex;
   flex-direction: column;
   gap: 6px;
-  /* reserve space for the absolutely positioned button on the right */
-  padding-right: 160px; /* desktop default reserve */
+  word-break: break-word;
 }
 
-/* descripción: permitir quiebre de palabras largas */
+/* description: wrap and prevent extremely long words from overflowing */
 .code-description {
   color: #000;
   overflow-wrap: anywhere;
@@ -203,85 +204,82 @@ function reiniciar() {
   white-space: normal;
 }
 
-/* botón: posición absoluta a la derecha del .code-item */
+/* button: keep compact with max-width and allow shrink on smaller screens */
 .select-button {
   background-color: #6495ED;
   color: #fff !important;
   border: none;
-  padding: 8px 12px;
+  padding: clamp(8px, 1vw, 12px) clamp(10px, 2.2vw, 16px);
   border-radius: 6px;
   font-family: monospace;
   font-weight: bold;
+  font-size: clamp(14px, 1.6vw, 16px);
   cursor: pointer;
   transition: all 0.18s ease;
+  flex: 0 0 auto;
   white-space: nowrap;
-  position: absolute;
-  right: 12px;
-  top: 12px; /* alineado al tope del bloque */
-  max-width: 130px;
+  max-width: 160px;
   box-sizing: border-box;
 }
 
-/* imágenes y SVGs dentro de items (si hay) */
+/* Ensure images/svgs don't overflow */
 .code-item img,
 .code-item svg {
   max-width: 100%;
   height: auto;
 }
 
-/* responsive: ajustar padding-right (espacio reservado) y botón en móvil,
-   manteniendo el botón a la derecha siempre */
-@media (max-width: 900px) {
-  /* reducir la reserva ligeramente para pantallas medianas */
-  .code-info {
-    padding-right: 140px;
-  }
-  .select-button {
-    max-width: 120px;
-    right: 10px;
-    top: 10px;
-    padding: 7px 10px;
+/* Responsive adjustments: increase container max-width slightly for tablets/desktop,
+   and ensure inner elements shrink to avoid overflow in narrow screens. */
+@media (min-width: 1200px) {
+  /* for very large screens let the container be a bit wider */
+  .container-select {
+    max-width: 1400px;
+    padding: 0 24px;
   }
 }
 
+/* Mobile: reduce paddings, button max-width and font so everything fits horizontally */
 @media (max-width: 600px) {
   .container-select {
-    padding: 0 10px;
-    width: 95%;
+    padding: 0 12px;
+    max-width: 98vw; /* keep under viewport */
   }
+
   .code-item {
-    padding: 10px 10px;
+    gap: 8px;
+    padding: 8px 10px;
+    grid-template-columns: minmax(0, 1fr) auto; /* keep button on the right */
   }
-  /* mobile: reservar menos espacio para el botón */
-  .code-info {
-    padding-right: 110px;
-  }
+
   .select-button {
-    max-width: 100px;
-    right: 10px;
-    top: 10px;
-    padding: 7px 10px;
+    padding: 8px 10px;
+    max-width: 110px;
+    font-size: 15px;
+  }
+
+  /* If a description is extremely long, allow it to wrap freely but reduce risk of overflow */
+  .code-description {
+    font-size: 14px;
+    line-height: 1.3;
   }
 }
 
-/* último recurso: pantallas muy estrechas
-   aquí seguimos manteniendo la posición a la derecha, pero si el ancho total
-   es insuficiente el layout podrá hacer overflow-x (user can scroll).
-   If you prefer to stack instead, change grid-template-columns to 1fr and
-   remove padding-right reservation. */
-@media (max-width: 320px) {
-  .code-info {
-    padding-right: 90px;
+/* Very narrow screens: as absolute last resort stack button below to avoid any overflow,
+   but with current sizing this should rarely be hit. */
+@media (max-width: 340px) {
+  .code-item {
+    grid-template-columns: 1fr; /* stack */
   }
   .select-button {
-    max-width: 90px;
-    right: 8px;
-    top: 8px;
-    padding: 6px 8px;
+    justify-self: start;
+    margin-top: 8px;
+    white-space: normal;
+    max-width: 100%;
   }
 }
 
-/* resto de estilos visuales (popup y botones globales) */
+/* action buttons and popup remain unchanged */
 .action-buttons {
   width: 100%;
   display: flex;
