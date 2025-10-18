@@ -16,9 +16,9 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 .marca {
-  font-family: 'Orbitron', Arial, sans-serif;
+  font-family: 'Audiowide', sans-serif;
   font-size: clamp(16px, 4vw, 30px);
   font-weight: 900;
   color: #fff;
