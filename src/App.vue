@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <ContainerInicial v-if="!mostrarSelect">
-      <Marca textoMarca="NhugAi" class="marca-separada" />
+      <Marca textoMarca="NhugIo" class="marca-separada" />
       <CajaTexto @enviar="enviarTexto" />
       <Spinner v-if="loading" class="spinner-separado" />
     </ContainerInicial>
