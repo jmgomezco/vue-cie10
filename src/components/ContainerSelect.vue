@@ -104,11 +104,10 @@ async function elegirCodigo(item, idx) {
       showConfirm.value = true
       setTimeout(() => {
         showConfirm.value = false
-        reiniciar() // <-- CAMBIO: Siempre reinicia después del mensaje emergente.
+        reiniciar()
       }, 2050)
     }
   } catch (e) {
-    // Manejar errores si lo deseas
     console.error(e)
   } finally {
     loadingGrabado.value = false
@@ -116,7 +115,6 @@ async function elegirCodigo(item, idx) {
 }
 
 function reiniciar() {
-  // No graba nada, solo resetea y vuelve al inicio
   elegidoIdx.value = null
   focusedIdx.value = null
   hoveredIdx.value = null
@@ -127,27 +125,21 @@ function reiniciar() {
 </script>
 
 <style scoped>
-
 .container-select {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;      /* Justifica el contenido a la izquierda */
-    justify-content: flex-start;
-    width: 95%;
-    max-width: 900px;            /* anchura  */
-    min-height: 100vh;
-    margin: 40px auto 0 auto; /* En pantallas grandes: margen superior de 40px */
-    padding: 0 14px;
-    box-sizing: border-box;
-    font-family: monospace;
-    position: relative;
-    gap: 50px; /* <-- AGREGA ESTA LÍNEA AQUÍ */
-  }
-
-/* Si prefieres que en pantallas gigantes (>= 1400px) tenga aún más restricción
-   puedes usar un max-width más pequeño o añadir un media query; ejemplo:
-   @media (min-width: 1400px) { .container-select { max-width: 1100px; } }
-*/
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 95%;
+  max-width: 900px;
+  min-height: 100vh;
+  margin: 40px auto 0 auto;
+  padding: 0 14px;
+  box-sizing: border-box;
+  font-family: monospace;
+  position: relative;
+  gap: 50px;
+}
 
 .codes-list {
   width: 100%;
@@ -157,10 +149,13 @@ function reiniciar() {
   margin-top: clamp(4px, 1vh, 12px);
   font-family: monospace;
 }
+
 .codes-list,
 .code-item {
   font-size: clamp(12px, 2vw, 18px);
 }
+
+/* Permitir que el contenido se ajuste y evitar overflow */
 .code-item {
   width: 100%;
   display: flex;
@@ -173,8 +168,31 @@ function reiniciar() {
   transition: all 0.3s ease;
   font-family: monospace;
   outline: none;
+
+  /* permitir que el botón baje a la siguiente línea en pantallas estrechas */
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
+/* Permitir que este flex-child se encoja correctamente */
+.code-info {
+  flex: 1 1 auto;
+  min-width: 0; /* MUY IMPORTANTE para evitar overflow en flex */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: monospace;
+}
+
+/* permitir quiebres de palabras largas en la descripción */
+.code-description {
+  font-family: monospace;
+  color: #000;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* botón: dejar que se reduzca visualmente y no fuerce overflow */
 .select-button {
   background-color: #6495ED;
   color: #fff !important;
@@ -185,27 +203,40 @@ function reiniciar() {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+  /* evitar que el botón crezca demasiado; permitir que el layout lo sitúe */
+  flex: 0 0 auto;
   white-space: nowrap;
 }
-.select-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+
+/* Media query para móviles: disminuir padding y permitir wrap del texto del botón */
+@media (max-width: 600px) {
+  .container-select {
+    margin: 16px auto 0 auto;
+    max-width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    box-sizing: border-box;
+    overflow-x: hidden; /* última línea de defensa */
+    width: 95%;
+  }
+
+  .code-item {
+    padding: clamp(6px, 1vw, 8px) clamp(10px, 3vw, 12px);
+    /* en móviles permitir que el botón vaya a la siguiente línea si es necesario */
+    align-items: center;
+  }
+
+  .select-button {
+    padding: clamp(6px, 1vw, 10px) clamp(8px, 3vw, 12px);
+    white-space: normal; /* permitir que el contenido del botón haga wrap si necesario */
+  }
+
+  .code-description {
+    font-size: clamp(12px, 3vw, 14px);
+  }
 }
-.code-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-family: monospace;
-}
-.code-number {
-  font-family: monospace;
-  color: #000;
-}
-.code-description {
-  font-family: monospace;
-  color: #000;
-}
+
+/* resto de estilos (sin cambios) */
 .action-buttons {
   width: 100%;
   display: flex;
@@ -226,20 +257,6 @@ function reiniciar() {
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
-}
-.new-search-button:hover,
-.new-search-button:focus,
-.new-search-button.active {
-  background-color: #317f43 !important;
-  color: #fff !important;
-  transform: scale(1.05);
-  font-family: monospace;
-}
-.no-codes-message p {
-  font-family: monospace;
-  color: #666;
-  margin-bottom: clamp(10px, 2vh, 16px);
-  font-size: clamp(12px, 2vw, 18px);
 }
 .popup-confirm {
   position: fixed;
@@ -270,57 +287,5 @@ function reiniciar() {
 .fade-enter-to,
 .fade-leave-from {
   opacity: 1;
-}
-
-/* ... Resto de tus estilos ... */
-
-@media (max-width: 600px) {
-  .container-select {
-    margin: 16px auto 0 auto;
-    max-width: 100%;        /* CORREGIDO: antes 100vw */
-    padding-left: 8px;
-    padding-right: 8px;
-    box-sizing: border-box;
-    overflow-x: hidden;     /* Opcional, como última defensa */
-    width: 95%;             /* asegurar margen lateral en móviles */
-  }
-
-  .codes-list {
-    gap: clamp(2px, 1vw, 6px);
-    margin-top: clamp(2px, 1vw, 6px);
-  }
-  .codes-list,
-  .code-item {
-    font-size: clamp(12px, 3vw, 16px);
-  }
-  .code-item {
-    padding: clamp(2px, 1vw, 6px) clamp(10px, 3vw, 14px);
-  }
-  .select-button {
-    font-size: clamp(10px, 4vw, 12px);
-    padding: clamp(6px, 1vw, 10px) clamp(10px, 3vw, 12px);
-    color: #fff !important;
-  }
-  .action-buttons {
-    margin-top: clamp(10px, 2vw, 16px);
-  }
-  .new-search-button {
-    font-size: clamp(12px, 3vw, 14px);
-    padding: clamp(7px, 1vw, 10px) clamp(12px, 3vw, 16px);
-    color: #fff !important;
-  }
-  .new-search-button:hover,
-  .new-search-button:focus,
-  .new-search-button.active {
-    color: #fff !important;
-    background-color: #317f43 !important;
-  }
-  .no-codes-message {
-    margin-top: clamp(8px, 2vw, 14px);
-  }
-  .no-codes-message p {
-    font-size: clamp(12px, 3vw, 13px);
-    margin-bottom: clamp(8px, 2vw, 12px);
-  }
 }
 </style>
