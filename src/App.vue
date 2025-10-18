@@ -1,6 +1,6 @@
 <template>
   <ContainerInicial v-if="!mostrarSelect">
-    <Sobre class="marca-separada" />
+    <Marca textoMarca="NhugAi" class="marca-separada" />
     <CajaTexto @enviar="enviarTexto" />
     <Spinner v-if="loading" class="spinner-separado" />
   </ContainerInicial>
