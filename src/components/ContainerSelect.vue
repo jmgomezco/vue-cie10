@@ -126,8 +126,9 @@ function reiniciar() {
 </script>
 
 <style scoped>
-  
-.container-select {
+
+
+  container-select {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -135,13 +136,18 @@ function reiniciar() {
     width: 100%;
     max-width: 900px;
     min-height: 100vh;
-    margin: 45px auto 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
     padding: 0 14px;
     box-sizing: border-box;
     font-family: monospace;
     position: relative;
     gap: 20px;
 }
+
+
 .codes-list {
     width: 95%;
     display: flex;
