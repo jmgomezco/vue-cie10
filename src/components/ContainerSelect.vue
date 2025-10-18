@@ -1,6 +1,6 @@
 <template>
   <div class="container-select">
-    <Marca textoMarca="NhugAi" />
+    <Marca textoMarca="Nhug.Io" />
     <div class="codes-list" v-if="candidatos && candidatos.length">
       <div
         v-for="(item, idx) in candidatos"
