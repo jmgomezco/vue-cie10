@@ -97,10 +97,10 @@ function handleReset() {
   justify-content: flex-start;
   width: min(900px, 95%);
   max-width: 900px;
-  margin: 30px auto 0;
+  margin: 20px auto 0;
   padding: 0 14px;
   box-sizing: border-box;
-  gap: 30px;
+  gap: 20px;
   font-family: monospace;
 }
 
