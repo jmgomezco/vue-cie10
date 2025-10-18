@@ -127,23 +127,22 @@ function reiniciar() {
 </script>
 
 <style scoped>
-/* FIX: selector corregido (antes estaba sin el punto: `container-select`) */
-/* Mantengo un ancho máximo razonable en pantallas grandes y uso width responsivo */
+
 .container-select {
-  width: min(900px, 95%); /* ancho responsivo: hasta 900px, o 95% del viewport en pantallas pequeñas */
-  max-width: 900px;
-  margin: 30px auto; /* centra en pantallas grandes */
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  min-height: auto; /* no forzar 100vh para evitar sensación de "full width/height" */
-  padding: 0 14px;
-  gap: 20px;
-  font-family: monospace;
-  position: relative;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;      /* Justifica el contenido a la izquierda */
+    justify-content: flex-start;
+    width: 95%;
+    max-width: 900px;            /* anchura  */
+    min-height: 100vh;
+    margin: 40px auto 0 auto; /* En pantallas grandes: margen superior de 40px */
+    padding: 0 14px;
+    box-sizing: border-box;
+    font-family: monospace;
+    position: relative;
+    gap: 50px; /* <-- AGREGA ESTA LÍNEA AQUÍ */
+  }
 
 /* Si prefieres que en pantallas gigantes (>= 1400px) tenga aún más restricción
    puedes usar un max-width más pequeño o añadir un media query; ejemplo:
