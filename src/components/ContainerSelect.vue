@@ -155,12 +155,13 @@ function reiniciar() {
   font-size: clamp(12px, 2vw, 18px);
 }
 
-/* Permitir que el contenido se ajuste y evitar overflow */
+/* -> Cambiado a grid para forzar botón a la derecha y evitar que la descripción lo empuje abajo */
 .code-item {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto; /* descripción flexible | botón auto */
+  gap: 12px;
+  align-items: start; /* alinear el botón al tope de la descripción multilinea */
   padding: clamp(4px, 1vw, 8px) clamp(12px, 3vw, 18px);
   border: 2px solid #6495ED;
   border-radius: 8px;
@@ -168,16 +169,12 @@ function reiniciar() {
   transition: all 0.3s ease;
   font-family: monospace;
   outline: none;
-
-  /* permitir que el botón baje a la siguiente línea en pantallas estrechas */
-  flex-wrap: wrap;
-  gap: 10px;
+  box-sizing: border-box;
 }
 
-/* Permitir que este flex-child se encoja correctamente */
+/* Permitir que este grid-child se encoja correctamente */
 .code-info {
-  flex: 1 1 auto;
-  min-width: 0; /* MUY IMPORTANTE para evitar overflow en flex */
+  min-width: 0; /* MUY IMPORTANTE para evitar overflow en grid/flex */
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -190,9 +187,10 @@ function reiniciar() {
   color: #000;
   overflow-wrap: anywhere;
   word-break: break-word;
+  white-space: normal;
 }
 
-/* botón: dejar que se reduzca visualmente y no fuerce overflow */
+/* botón: mantener compacto y evitar wrap interno */
 .select-button {
   background-color: #6495ED;
   color: #fff !important;
@@ -203,12 +201,12 @@ function reiniciar() {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* evitar que el botón crezca demasiado; permitir que el layout lo sitúe */
-  flex: 0 0 auto;
   white-space: nowrap;
+  align-self: start; /* alinear al tope del grid cell */
 }
 
-/* Media query para móviles: disminuir padding y permitir wrap del texto del botón */
+/* Media query para móviles: conservar botón a la derecha en la mayoría de casos.
+   En pantallas muy pequeñas (ej. <360px) apilamos para evitar overflow horizontal. */
 @media (max-width: 600px) {
   .container-select {
     margin: 16px auto 0 auto;
@@ -222,17 +220,31 @@ function reiniciar() {
 
   .code-item {
     padding: clamp(6px, 1vw, 8px) clamp(10px, 3vw, 12px);
-    /* en móviles permitir que el botón vaya a la siguiente línea si es necesario */
+    grid-template-columns: 1fr auto;
     align-items: center;
+    gap: 8px;
   }
 
   .select-button {
     padding: clamp(6px, 1vw, 10px) clamp(8px, 3vw, 12px);
-    white-space: normal; /* permitir que el contenido del botón haga wrap si necesario */
+    white-space: nowrap;
   }
 
   .code-description {
     font-size: clamp(12px, 3vw, 14px);
+  }
+}
+
+/* Pantallas muy estrechas: apilar (botón abajo) para evitar scroll horizontal extremo */
+@media (max-width: 360px) {
+  .code-item {
+    grid-template-columns: 1fr;
+  }
+  .select-button {
+    width: auto;
+    white-space: normal;
+    margin-top: 8px;
+    justify-self: start;
   }
 }
 
